@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  dnsled:
+    container_name: dnsled
+    build: .
+    # rename env.sample to .env and edit values or uncomment this section
+    # environment:
+    #   - DNS_UPSTREAM="10.0.0.10:53"
+    #   - WLED_API="http://10.0.0.11/json/state"
+    #   - LED_COUNT="100"
+    env_file:
+      - .env
+    ports:
+      - 10.41.0.53:53:53/udp
+    restart: unless-stopped
