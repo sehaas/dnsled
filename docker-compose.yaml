@@ -11,5 +11,18 @@ services:
     env_file:
       - .env
     ports:
-      - <YOUR_IP>:53:53/udp # replace with your IP or 0.0.0.0
+      - <YOUR_IPV4>:53:53/udp # replace with your IP or 0.0.0.0
+      - "[<YOUR_IPV6>]:53:53/udp"
     restart: unless-stopped
+    networks:
+      - dnsled-network
+
+networks:
+  dnsled-network:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: fc0f:253::/64
+        - subnet: 192.168.253.0/24

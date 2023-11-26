@@ -4,7 +4,7 @@ use std::net::SocketAddr;
 #[derive(Parser, Clone, Debug)]
 pub struct Options {
     /// UDP socket to listen on.
-    #[clap(long, short, default_value = "0.0.0.0:53", env = "DNS_BIND")]
+    #[clap(long, short, default_value = "[::]:53", env = "DNS_BIND")]
     pub bind: SocketAddr,
 
     /// upstream DNS resolver.

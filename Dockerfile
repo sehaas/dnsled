@@ -1,4 +1,4 @@
-FROM rust AS builder
+FROM rust:1-bookworm AS builder
 LABEL builder=true
 
 # copy code files
@@ -10,7 +10,11 @@ WORKDIR /code
 RUN cargo build --release
 
 # runtime container
-FROM debian:11 AS runtime
+FROM debian:bookworm AS runtime
+
+RUN apt-get update && apt-get install -y \
+    libssl3 \
+    && rm -rf /var/lib/apt/lists/*
 
 # set default logging, can be overridden
 ENV RUST_LOG=info
